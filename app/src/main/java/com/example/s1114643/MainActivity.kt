@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 fun FirstScreen(NavController: NavController) {
-    var title by remember { mutableStateOf("瑪利亞基金會服務總覽") }
+    var title by remember { mutableStateOf("資源地圖") }
     Column(
         modifier = Modifier
     ) {
@@ -83,7 +83,7 @@ fun FirstScreen(NavController: NavController) {
                 )
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.service),
+                    painter = painterResource(id = R.drawable.wall),
                     contentDescription = "服務總覽"
                 )
             }
@@ -97,20 +97,26 @@ fun FirstScreen(NavController: NavController) {
                     animationSpec = tween(durationMillis = 1500)
                 )
             ) {
+                Column {
                 Image(
-                    painter = painterResource(id = R.drawable.mee),
+                    painter = painterResource(id = R.drawable.food),
                     contentDescription = "mee"
                 )
+                    Text(
+                        text = "食物銀行是一種非營利機構,主要收集社會剩餘食物並加以分類存放,再透過慈善團體將食物分發至弱勢群體,如低收入家庭、無家可歸者等。食物銀行的運作需要民眾企業捐贈及志願者協助,不僅減少食物浪費,更提供必要的食物援助。",
+                        fontSize = 16.sp
+                    )
+                    }
             }
             Button(
                 onClick = { appear = !appear }
             ) {
                 if (appear) {
-                    Text(text = "作者:資管二A林威呈")
-                    title = "瑪利亞基金會服務總覽"
+                    Text(text = "食物銀行簡介")
+                    title = "食物銀行"
                 } else {
-                    Text(text = "服務總覽")
-                    title = "關於作者"
+                    Text(text = "回首頁")
+                    title = "食物銀行簡介"
                 }
             }
         }
@@ -118,7 +124,7 @@ fun FirstScreen(NavController: NavController) {
 }
 @Composable
 fun SecondScreen(navController: NavController) {
-    var selected by remember { mutableStateOf("台中市愛心家園") }
+    var selected by remember { mutableStateOf("1919食物銀行台中園區") }
     val context = LocalContext.current
 
     Column(modifier = Modifier
@@ -127,37 +133,37 @@ fun SecondScreen(navController: NavController) {
         Text(text = "主要機構", color = Color.Red, fontSize = 20.sp)
         Spacer(modifier = Modifier.height(16.dp))
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-            Button(onClick = { selected = "台中市愛心家園" }) {
-                Text(text = "台中市愛心家園")
+            Button(onClick = { selected = "1919食物銀行台中園區" }) {
+                Text(text = "1919食物銀行台中園區")
             }
-            Button(onClick = { selected = "瑪利亞學園" }) {
-                Text(text = "瑪利亞學園")
+            Button(onClick = { selected = "家扶好鄰居 愛心物資銀行" }) {
+                Text(text = "家扶好鄰居 愛心物資銀行")
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
         when (selected) {
-            "台中市愛心家園" -> {
+            "1919食物銀行台中園區" -> {
                 Column {
                     Text(
-                        text = "台中市愛心家園 經市政府公開評選後，委託瑪利亞基金會經營管理，於91年啟用，整棟建築物有四個樓層，目前開辦就醫、就養、就學、就業四大領域的十項業務，提供身心障礙者全方位的服務。",
+                        text = "2017年3月，在台中開設全台首座融合「惜食5環」的「1919食物銀行台中園區」 (「惜食5環」含：中央倉儲、實體食物銀行、惜食處理、中央廚房，及培力食育教室)。",
                         fontSize = 16.sp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "長按以下圖片，可以觀看愛心家園地圖",
+                        text = "如何去1919食物銀行台中園區,長按下方圖片",
                         fontSize = 16.sp,
                         color = Color.Blue
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.lovehome),
+                        painter = painterResource(id = R.drawable.foodbank1919),
                         contentDescription = "Love Home",
                         modifier = Modifier
                             .size(200.dp)
                             .pointerInput(Unit) {
                                 detectTapGestures(
                                     onLongPress = {
-                                        val gmmIntentUri = Uri.parse("geo:0,0?q=台中市南屯區東興路一段450號")
+                                        val gmmIntentUri = Uri.parse("geo:0,0?q=台中市西屯區西平南巷2-5號")
                                         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                                         mapIntent.setPackage("com.google.android.apps.maps")
                                         context.startActivity(mapIntent)
@@ -167,28 +173,28 @@ fun SecondScreen(navController: NavController) {
                     )
                 }
             }
-            "瑪利亞學園" -> {
+            "家扶好鄰居 愛心物資銀行" -> {
                 Column {
                     Text(
-                        text = "瑪利亞學園 提供重度以及極重度多重障礙者日間照顧服務，以健康照護為基礎，支持生活多面向參與及學習概念，輔助發展重度身心障礙者自我概念為最終服務目標。",
+                        text = "家扶好鄰居愛心物資銀行是家扶基金會的專案,透過民眾及企業捐贈物資,收集食品、生活用品等剩餘物資,再由家扶將這些物資分類、包裝,提供給遭逢經濟困境的弱勢家庭使用。此外,物資銀行也積極號召企業及民眾捐贈中古物資,落實資源再利用及環保概念,讓愛心從這裡傳遞開來。",
                         fontSize = 16.sp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "雙擊以下圖片，可以觀看瑪利亞學園地圖",
+                        text = "家扶好鄰居 愛心物資銀行,長按下方圖片",
                         fontSize = 16.sp,
                         color = Color.Blue
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.campus),
+                        painter = painterResource(id = R.drawable.foodbank02),
                         contentDescription = "Campus",
                         modifier = Modifier
                             .size(200.dp)
                             .pointerInput(Unit) {
                                 detectTapGestures(
                                     onDoubleTap = {
-                                        val gmmIntentUri = Uri.parse("geo:0,0?q=台中市北屯區經貿東路365號")
+                                        val gmmIntentUri = Uri.parse("geo:0,0?q=台中市西屯區臺灣大道二段761號")
                                         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                                         mapIntent.setPackage("com.google.android.apps.maps")
                                         context.startActivity(mapIntent)
@@ -212,7 +218,7 @@ fun Main() {
         TopAppBar(
             title = {
                 Image(
-                    painter = painterResource(id = R.drawable.maria),
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = "maria"
                 )
             },
@@ -227,11 +233,11 @@ fun Main() {
                     expanded = showMenu, onDismissRequest = { showMenu = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("簡介") },
+                        text = { Text("首頁") },
                         onClick = { navController.navigate("JumpFirst") })
 
                     DropdownMenuItem(
-                        text = { Text("主要機構") },
+                        text = { Text("食物銀行地圖") },
                         onClick = { navController.navigate("JumpSecond") })
                 }
 
